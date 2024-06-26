@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play Pro</title>
+    <!-- css style link -->
+    <link rel="stylesheet" href="style.css">
+    <!-- font-awesome cdn link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <!-- bootstrap 5 css link -->
+    <link rel="stylesheet" href="bootstrap5/css/bootstrap.min.css">
+    <!-- wavesurfer api -->
+    <!-- Use the non-ESM version of WaveSurfer.js -->
+    <script src="https://cdn.jsdelivr.net/npm/wavesurfer.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll('.wave-form').forEach(waveform => {
+                const audioFile = waveform.getAttribute('data-audio-file');
+                const wavesurfer = WaveSurfer.create({
+                    container: waveform,
+                    waveColor: '#ffffffce',
+                    progressColor: '#383351',
+                    height: 90,
+                    barWidth: 4,
+                    responsive: true,
+                    barRadius: 4,
+                    url: audioFile,
+                });
+
+                wavesurfer.on('interaction', () => {
+                    wavesurfer.play();
+                });
+            });
+        });
+    </script>
+
+    <style>
+        .wave-form {
+            width: 100%;
+            height: 90px;
+            background-color: #1d1d1d;
+            margin-bottom: 20px;
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <div class="tabs">
+            <button class="tab-btn active">Browse</button>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-5">
+                <div class="row g-3 align-items-center">
+                    <div class="col-1 text-center">
+                        <span class="star"><i class="fa-solid fa-star"></i></span>
+                    </div>
+                    <div class="col-11">
+                        <div class="search-box">
+                            <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+                            <input type="search" name="query" id="search" required class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="card p-0 nav-bar-card">
+                            <ul class="nav-bar">
+                                <li class="nav-list">
+                                    <a href="#" class="nav-link">
+                                        <span>
+                                            <i class="fa-solid fa-chevron-right"></i>
+                                            <i class="fa-solid fa-folder"></i> Impacts
+                                        </span>
+                                    </a>
+                                    <ul class="navbar-nav">
+                                        <li class="navbar-nav-list">
+                                            <a href="#" class="navbar-nav-link">
+                                                <span>
+                                                    <i class="fa-solid fa-chevron-right"></i>
+                                                    <i class="fa-solid fa-folder"></i> Risers
+                                                </span>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-list">
+                                    <a href="#" class="nav-link">
+                                        <span>
+                                            <i class="fa-solid fa-chevron-right"></i>
+                                            <i class="fa-solid fa-folder"></i> Transitions
+                                        </span>
+                                    </a>
+                                    <ul class="navbar-nav">
+                                        <li class="navbar-nav-list">
+                                            <a href="#" class="navbar-nav-link">
+                                                <span>
+                                                    <i class="fa-solid fa-chevron-right"></i>
+                                                    <i class="fa-solid fa-folder"></i> Risers
+                                                </span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-list">
+                                    <a href="#" class="nav-link">
+                                        <span>
+                                            <i class="fa-solid fa-chevron-right"></i>
+                                            <i class="fa-solid fa-folder"></i> Sound Effects
+                                        </span>
+                                    </a>
+                                    <ul class="navbar-nav">
+                                        <li class="navbar-nav-list">
+                                            <a href="#" class="navbar-nav-link">
+                                                <span>
+                                                    <i class="fa-solid fa-chevron-right"></i>
+                                                    <i class="fa-solid fa-folder"></i> Risers
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="navbar-nav-list">
+                                            <a href="#" class="navbar-nav-link">
+                                                <span>
+                                                    <i class="fa-solid fa-chevron-right"></i>
+                                                    <i class="fa-solid fa-folder"></i> Whooshes
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="navbar-nav-list">
+                                            <a href="#" class="navbar-nav-link">
+                                                <span>
+                                                    <i class="fa-solid fa-chevron-right"></i>
+                                                    <i class="fa-solid fa-folder"></i> Impacts
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="navbar-nav-list">
+                                            <a href="#" class="navbar-nav-link">
+                                                <span>
+                                                    <i class="fa-solid fa-chevron-right"></i>
+                                                    <i class="fa-solid fa-folder"></i> Bonus
+                                                </span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-7">
+                <div class="card card-body web-content">
+                    <div class="row g-1">
+                        <div class="col-md-6">
+                            <div class="card card-body voice-card">
+                                <div class="wave-form" data-audio-file="Media/Impacts/PM_Impact 01 Strong.wav"></div>
+                                <div class="voice-card-content">
+                                    <div class="voice-card-content-det">
+                                        <div class="voice-det" style="background: none;">
+                                            <span>Dramatic Approach 01</span>
+                                        </div>
+                                        <div class="star-icon">
+                                            <i class="fa-solid fa-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card card-body voice-card">
+                                <div class="wave-form" data-audio-file="Media/Impacts/PM_Impact 02 Quick.wav"></div>
+                                <div class="voice-card-content">
+                                    <div class="voice-card-content-det">
+                                        <div class="voice-det">
+                                            <span>Dramatic Approach 01</span>
+                                        </div>
+                                        <div class="star-icon">
+                                            <i class="fa-solid fa-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card card-body voice-card">
+                                <div class="wave-form" data-audio-file="Media/Impacts/PM_Impact 03 Epic.wav"></div>
+                                <div class="voice-card-content">
+                                    <div class="voice-card-content-det">
+                                        <div class="voice-det">
+                                            <span>Dramatic Approach 01</span>
+                                        </div>
+                                        <div class="star-icon">
+                                            <i class="fa-solid fa-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // navbar query
+            // Get all nav-link elements
+            const navbar_links = document.querySelectorAll('.nav-link');
+
+            // Add click event listener to each nav-link
+            navbar_links.forEach(link => {
+                link.addEventListener('click', function (event) {
+                    event.preventDefault(); // Prevent default anchor behavior
+
+                    // Find the next sibling .navbar-nav
+                    const navBar = this.nextElementSibling;
+
+                    // Toggle height of the corresponding .navbar-nav
+                    if (navBar && navBar.classList.contains('navbar-nav')) {
+                        if (navBar.style.height === 'auto') {
+                            navBar.style.removeProperty('height');
+                        } else {
+                            navBar.style.height = 'auto';
+                        }
+                    }
+                });
+            });
+
+            // search box query
+            document.getElementById('search').addEventListener('input', function () {
+                // Get the search query
+                const query = this.value.toLowerCase();
+
+                // Get all the navbar links
+                const links = document.querySelectorAll('.nav-link, .navbar-nav-link');
+                const navBars = document.querySelectorAll('.navbar-nav');
+
+                // Reset all navbar heights to 0 initially
+                navBars.forEach(navBar => {
+                    navBar.style.removeProperty('height');
+                });
+
+                // Iterate over each link
+                links.forEach(link => {
+                    // Get the text content of the link
+                    const text = link.textContent.toLowerCase();
+
+                    // Check if the text includes the search query
+                    if (text.includes(query) && query !== '') {
+                        // Add the active class if it matches
+                        link.classList.add('active');
+
+                        // If it's a navbar-nav-link, set the height of its parent navbar-nav to auto
+                        if (link.classList.contains('navbar-nav-link')) {
+                            const navBar = link.closest('.navbar-nav');
+                            if (navBar) {
+                                navBar.style.height = 'auto';
+                            }
+                        }
+                    } else {
+                        // Remove the active class if it doesn't match
+                        link.classList.remove('active');
+                    }
+                });
+            });
+
+
+        });
+    </script>
+
+    <!-- js script link -->
+    <script src="script.js"></script>
+    <!-- bootstrap 5 js script link -->
+    <script src="bootstrap5/js/bootstrap.min.js"></script>
+</body>
+
+</html>
