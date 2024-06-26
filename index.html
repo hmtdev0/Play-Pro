@@ -11,6 +11,41 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
     <!-- bootstrap 5 css link -->
     <link rel="stylesheet" href="bootstrap5/css/bootstrap.min.css">
+    <!-- wavesurfer api -->
+    <!-- Use the non-ESM version of WaveSurfer.js -->
+    <script src="https://cdn.jsdelivr.net/npm/wavesurfer.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll('.wave-form').forEach(waveform => {
+                const audioFile = waveform.getAttribute('data-audio-file');
+                const wavesurfer = WaveSurfer.create({
+                    container: waveform,
+                    waveColor: '#ffffffce',
+                    progressColor: '#383351',
+                    height: 90,
+                    barWidth: 4,
+                    responsive: true,
+                    barRadius: 4,
+                    url: audioFile,
+                });
+
+                wavesurfer.on('interaction', () => {
+                    wavesurfer.play();
+                });
+            });
+        });
+    </script>
+
+    <style>
+        .wave-form {
+            width: 100%;
+            height: 90px;
+            background-color: #1d1d1d;
+            margin-bottom: 20px;
+            position: relative;
+        }
+    </style>
 </head>
 
 <body>
@@ -121,72 +156,45 @@
                     <div class="row g-1">
                         <div class="col-md-6">
                             <div class="card card-body voice-card">
-                                <div class="wave-icon">
-                                    <i class="fa-solid fa-wave-square"></i>
-                                    <i class="fa-solid fa-wave-square"></i><i class="fa-solid fa-wave-square"></i>
-                                    <i class="fa-solid fa-wave-square"></i><i class="fa-solid fa-wave-square"></i>
-                                    <i class="fa-solid fa-wave-square"></i><i class="fa-solid fa-wave-square"></i>
-                                </div>
+                                <div class="wave-form" data-audio-file="Media/Impacts/PM_Impact 01 Strong.wav"></div>
                                 <div class="voice-card-content">
-                                    <div class="voice-det">
-                                        <span>Dramatic Approach 01</span>
-                                    </div>
-                                    <div class="star-icon">
-                                        <i class="fa-solid fa-star"></i>
+                                    <div class="voice-card-content-det">
+                                        <div class="voice-det" style="background: none;">
+                                            <span>Dramatic Approach 01</span>
+                                        </div>
+                                        <div class="star-icon">
+                                            <i class="fa-solid fa-star"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="card card-body voice-card">
-                                <div class="wave-icon">
-                                    <i class="fa-solid fa-wave-square"></i>
-                                    <i class="fa-solid fa-wave-square"></i><i class="fa-solid fa-wave-square"></i>
-                                    <i class="fa-solid fa-wave-square"></i><i class="fa-solid fa-wave-square"></i>
-                                    <i class="fa-solid fa-wave-square"></i><i class="fa-solid fa-wave-square"></i>
-                                </div>
+                                <div class="wave-form" data-audio-file="Media/Impacts/PM_Impact 02 Quick.wav"></div>
                                 <div class="voice-card-content">
-                                    <div class="voice-det">
-                                        <span>Dramatic Approach 01</span>
-                                    </div>
-                                    <div class="star-icon">
-                                        <i class="fa-solid fa-star"></i>
+                                    <div class="voice-card-content-det">
+                                        <div class="voice-det">
+                                            <span>Dramatic Approach 01</span>
+                                        </div>
+                                        <div class="star-icon">
+                                            <i class="fa-solid fa-star"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="card card-body voice-card">
-                                <div class="wave-icon">
-                                    <i class="fa-solid fa-wave-square"></i>
-                                    <i class="fa-solid fa-wave-square"></i><i class="fa-solid fa-wave-square"></i>
-                                    <i class="fa-solid fa-wave-square"></i><i class="fa-solid fa-wave-square"></i>
-                                    <i class="fa-solid fa-wave-square"></i><i class="fa-solid fa-wave-square"></i>
-                                </div>
+                                <div class="wave-form" data-audio-file="Media/Impacts/PM_Impact 03 Epic.wav"></div>
                                 <div class="voice-card-content">
-                                    <div class="voice-det">
-                                        <span>Dramatic Approach 01</span>
-                                    </div>
-                                    <div class="star-icon">
-                                        <i class="fa-solid fa-star"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card card-body voice-card">
-                                <div class="wave-icon">
-                                    <i class="fa-solid fa-wave-square"></i>
-                                    <i class="fa-solid fa-wave-square"></i><i class="fa-solid fa-wave-square"></i>
-                                    <i class="fa-solid fa-wave-square"></i><i class="fa-solid fa-wave-square"></i>
-                                    <i class="fa-solid fa-wave-square"></i><i class="fa-solid fa-wave-square"></i>
-                                </div>
-                                <div class="voice-card-content">
-                                    <div class="voice-det">
-                                        <span>Dramatic Approach 01</span>
-                                    </div>
-                                    <div class="star-icon">
-                                        <i class="fa-solid fa-star"></i>
+                                    <div class="voice-card-content-det">
+                                        <div class="voice-det">
+                                            <span>Dramatic Approach 01</span>
+                                        </div>
+                                        <div class="star-icon">
+                                            <i class="fa-solid fa-star"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -198,7 +206,8 @@
         </div>
     </div>
 
-    <script>document.addEventListener('DOMContentLoaded', function () {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
             // navbar query
             // Get all nav-link elements
             const navbar_links = document.querySelectorAll('.nav-link');
@@ -259,6 +268,7 @@
                     }
                 });
             });
+
 
         });
     </script>

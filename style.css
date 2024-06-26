@@ -233,7 +233,7 @@
     padding: 35px;
 }
 
-.content .web-content .voice-card .voice-card-content {
+.content .web-content .voice-card .voice-card-content .voice-card-content-det {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -241,22 +241,23 @@
     background-color: #141414;
 }
 
-.content .web-content .voice-card .voice-card-content .voice-det {
+.content .web-content .voice-card .voice-card-content .voice-card-content-det .voice-det {
     display: flex;
     gap: 5px;
     color: #f1f1f1;
+    background: none;
 }
 
-.content .web-content .voice-card .voice-card-content .voice-det span {
-    background-color: #141414;
+.content .web-content .voice-card .voice-card-content .voice-card-content-det .voice-det span {
+    background: none;
 }
 
-.content .web-content .voice-card .voice-card-content .star-icon {
-    background-color: #141414;
+.content .web-content .voice-card .voice-card-content .voice-card-content-det .star-icon {
+    background: none;
 }
 
-.content .web-content .voice-card .voice-card-content .star-icon i {
+.content .web-content .voice-card .voice-card-content .voice-card-content-det .star-icon i {
     font-size: 20px;
-    background-color: #141414;
+    background: none;
     color: #000000;
 }
