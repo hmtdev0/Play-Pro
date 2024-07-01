@@ -306,7 +306,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 form_wave.setAttribute("data-audio-file", audioFile_play);
 
-                console.log('audio file ready to play');
+                // debug the files are ready to play or not
+                // console.log('audio file ready to play');
 
                 if (wavesurfer) {
                     wavesurfer.destroy();
