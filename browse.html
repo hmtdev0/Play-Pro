@@ -73,14 +73,16 @@
                                     <img src="images/audio-wave.png" alt="" class="img">
                                     <span>Dramatic 1</span>
                                 </div>
-                                <button class="bg-transparent border-none star-icon">
+                                <button class="bg-transparent border-none star-icon add-to-favorites"
+                                    data-folder="impact" data-child-folder="Resires"
+                                    data-files="Media/Impacts/PM_Impact 01 Strong.wav">
                                     <i class="fa-solid fa-star"></i>
                                 </button>
                             </div>
                         </div>
                     </div>
                     <div class="card voice-card">
-                        <div class="wave-form" data-audio-file="Media/Impacts/PM_Impact 01 Strong.wav">
+                        <div class="wave-form" data-audio-file="Media/Impacts/PM_Impact 02 Quick.wav">
                         </div>
                         <div class="voice-card-content">
                             <div class="voice-card-content-det">
@@ -88,14 +90,16 @@
                                     <img src="images/audio-wave.png" alt="" class="img">
                                     <span>Dramatic 1</span>
                                 </div>
-                                <button class="bg-transparent border-none star-icon">
+                                <button class="bg-transparent border-none star-icon add-to-favorites"
+                                    data-folder="impact" data-child-folder="Resires"
+                                    data-files="Media/Impacts/PM_Impact 02 Quick.wav">
                                     <i class="fa-solid fa-star"></i>
                                 </button>
                             </div>
                         </div>
                     </div>
                     <div class="card voice-card">
-                        <div class="wave-form" data-audio-file="Media/Impacts/PM_Impact 01 Strong.wav">
+                        <div class="wave-form" data-audio-file="Media/Impacts/PM_Impact 03 Epic.wav">
                         </div>
                         <div class="voice-card-content">
                             <div class="voice-card-content-det">
@@ -103,7 +107,9 @@
                                     <img src="images/audio-wave.png" alt="" class="img">
                                     <span>Dramatic 1</span>
                                 </div>
-                                <button class="bg-transparent border-none star-icon">
+                                <button class="bg-transparent border-none star-icon add-to-favorites"
+                                    data-folder="impact" data-child-folder="Resires"
+                                    data-files="Media/Impacts/PM_Impact 03 Epic.wav">
                                     <i class="fa-solid fa-star"></i>
                                 </button>
                             </div>
@@ -264,6 +270,51 @@
                     }
                 });
             }
+
+            // Function to add items to favorites array in localStorage
+            function addFavorites(foldername, childfoldername, files) {
+                let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+                // Create a new favorite object
+                let newFavorite = {
+                    folderName: foldername,
+                    childFolderName: childfoldername,
+                    files: files
+                };
+
+                // Check if the new favorite already exists in favorites array
+                let exists = favorites.some(favorite => (
+                    favorite.folderName === foldername &&
+                    favorite.childFolderName === childfoldername &&
+                    JSON.stringify(favorite.files) === JSON.stringify(files)
+                ));
+
+                if (!exists) {
+                    // Add the new favorite to favorites array
+                    favorites.push(newFavorite);
+                    localStorage.setItem('favorites', JSON.stringify(favorites));
+                    console.log('Added to favorites:', newFavorite);
+                } else {
+                    console.log('Already exists in favorites:', newFavorite);
+                }
+            }
+
+            // Function to handle click event on add-to-favorites buttons
+            document.querySelectorAll('.add-to-favorites').forEach(button => {
+                button.addEventListener('click', function () {
+                    let folderName = this.getAttribute('data-folder');
+                    let childFolderName = this.getAttribute('data-child-folder');
+                    let files = this.getAttribute('data-files');
+
+                    addFavorites(folderName, childFolderName, files);
+                });
+            });
+
+            // Retrieve favorites from localStorage
+            let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+            // Now `favorites` contains your array of favorite items, or an empty array if none exists
+            console.log(favorites);
         });
     </script>
     <!-- footer add button -->
