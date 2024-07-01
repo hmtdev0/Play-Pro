@@ -282,6 +282,202 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+// for player and add-to-favorites functionality
+document.addEventListener("DOMContentLoaded", function () {
+    let wavesurfer = null;
+    let playerTime = document.getElementById('player-time');
+    let playControl = document.getElementById('play');
+    let replayControl = document.getElementById('replay');
+    let volumeControl = document.getElementById('volume');
+    let rangeControl = document.getElementById('player-range');
+
+    if (playControl && replayControl && volumeControl && rangeControl) {
+        document.querySelectorAll(".voice-card").forEach(function (voiceCard) {
+            voiceCard.addEventListener("click", function () {
+                // get the audio file from .voice-card> .wave-form
+                let audioFile_play = voiceCard.querySelector(".wave-form").getAttribute("data-audio-file");
+
+                // form-wave
+                let form_wave = document.querySelector(".form-wave");
+
+                // remove data-audio-file from form_wave
+                form_wave.removeAttribute("data-audio-file");
+                form_wave.innerHTML = '';
+
+                form_wave.setAttribute("data-audio-file", audioFile_play);
+
+                console.log('audio file ready to play');
+
+                if (wavesurfer) {
+                    wavesurfer.destroy();
+                }
+
+                wavesurfer = WaveSurfer.create({
+                    container: form_wave,
+                    waveColor: '#ffffffce',
+                    progressColor: '#383351',
+                    height: 90,
+                    barWidth: 4,
+                    responsive: true,
+                    barRadius: 4,
+                    url: audioFile_play,
+                });
+
+                wavesurfer.on('ready', function () {
+                    // Get the duration of the audio file
+                    let duration = wavesurfer.getDuration();
+
+                    // Format the duration to HH:MM:SS
+                    let formattedDuration = new Date(duration * 1000).toISOString().substr(11, 8);
+
+                    // Set the formatted duration to the player-time element
+                    playerTime.innerText = formattedDuration;
+
+                    // Reset range control
+                    rangeControl.value = 0;
+                });
+
+                wavesurfer.on('audioprocess', function () {
+                    let currentTime = wavesurfer.getCurrentTime();
+                    let duration = wavesurfer.getDuration();
+                    let remainingTime = duration - currentTime;
+                    let formattedTime = new Date(remainingTime * 1000).toISOString().substr(11, 8);
+                    playerTime.innerText = formattedTime;
+
+                    // Update range input
+                    rangeControl.value = currentTime / duration;
+                });
+
+                wavesurfer.on('seek', function () {
+                    let currentTime = wavesurfer.getCurrentTime();
+                    let duration = wavesurfer.getDuration();
+                    let remainingTime = duration - currentTime;
+                    let formattedTime = new Date(remainingTime * 1000).toISOString().substr(11, 8);
+                    playerTime.innerText = formattedTime;
+                });
+
+                wavesurfer.on('finish', function () {
+                    // Reset play button to 'play' icon
+                    playControl.querySelector('i').classList.remove('fa-pause');
+                    playControl.querySelector('i').classList.add('fa-play');
+                });
+
+                // Show the player
+                let player = document.getElementById('player');
+
+                // Ensure the player's right style is set to 0 initially if it doesn't exist
+                if (player) {
+                    if (!player.style.display) {
+                        player.style.display = 'block';
+                    }
+                    if (player.style.block === 'block') {
+                        player.style.block = 'none';
+                    }
+                }
+            });
+        });
+
+        playControl.addEventListener('click', function () {
+            if (wavesurfer) {
+                wavesurfer.playPause();
+                this.querySelector('i').classList.toggle('fa-play');
+                this.querySelector('i').classList.toggle('fa-pause');
+            }
+        });
+
+        replayControl.addEventListener('click', function () {
+            if (wavesurfer) {
+                wavesurfer.seekTo(0);
+                wavesurfer.play();
+                playControl.querySelector('i').classList.remove('fa-play');
+                playControl.querySelector('i').classList.add('fa-pause');
+            }
+        });
+
+        volumeControl.addEventListener('click', function () {
+            if (wavesurfer) {
+                let currentVolume = wavesurfer.getVolume();
+                let newVolume = currentVolume === 0 ? 1 : 0;
+                wavesurfer.setVolume(newVolume);
+                this.querySelector('i').classList.toggle('fa-volume-high');
+                this.querySelector('i').classList.toggle('fa-volume-mute');
+            }
+        });
+
+        rangeControl.addEventListener('input', function () {
+            if (wavesurfer) {
+                let seekTo = this.value * wavesurfer.getDuration();
+                wavesurfer.seekTo(seekTo / wavesurfer.getDuration());
+            }
+        });
+    }
+
+    // Function to toggle favorite status and update star color
+    function toggleFavorite() {
+        const folder = this.getAttribute('data-folder');
+        const childFolder = this.getAttribute('data-child-folder');
+        const files = this.getAttribute('data-files');
+
+        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+        // Check if the item already exists in favorites
+        const index = favorites.findIndex(favorite => (
+            favorite.folderName === folder &&
+            favorite.childFolderName === childFolder &&
+            JSON.stringify(favorite.files) === JSON.stringify(files)
+        ));
+
+        if (index !== -1) {
+            // Item exists, remove it from favorites
+            favorites.splice(index, 1);
+            this.querySelector('i').style.color = ''; // Reset star color
+            console.log('Removed from favorites:', { folderName: folder, childFolderName: childFolder, files: files });
+        } else {
+            // Item doesn't exist, add it to favorites
+            favorites.push({ folderName: folder, childFolderName: childFolder, files: files });
+            this.querySelector('i').style.color = '#EA8E37'; // Set star color
+            console.log('Added to favorites:', { folderName: folder, childFolderName: childFolder, files: files });
+        }
+
+        // Save updated favorites to localStorage
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+    }
+
+    // Function to initialize favorites functionality
+    function initializeFavorites() {
+        // Attach click event listener to .add-to-favorites buttons
+        document.querySelectorAll('.add-to-favorites').forEach(button => {
+            button.addEventListener('click', toggleFavorite);
+
+            // Set initial star color based on existing favorites
+            const folder = button.getAttribute('data-folder');
+            const childFolder = button.getAttribute('data-child-folder');
+            const files = button.getAttribute('data-files');
+
+            let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+            // Check if the current item exists in favorites
+            const exists = favorites.some(favorite => (
+                favorite.folderName === folder &&
+                favorite.childFolderName === childFolder &&
+                JSON.stringify(favorite.files) === JSON.stringify(files)
+            ));
+
+            if (exists) {
+                button.querySelector('i').style.color = '#EA8E37'; // Set star color
+            } else {
+                button.querySelector('i').style.color = ''; // Reset star color
+            }
+        });
+    }
+
+    initializeFavorites();
+
+});
+
+
+
+
 
 
 

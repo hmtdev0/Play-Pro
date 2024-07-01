@@ -507,16 +507,14 @@ input:focus {
 
 /* player */
 .player {
-    position: fixed;
+    position: absolute;
+    bottom: 0;
     width: 100%;
-    max-width: 865px;
-    bottom: 70px;
-    /* background-color: #666565; */
-    background-color: none;
-    right: 1000%;
+    background-color: #202020;
     padding: 10px;
     z-index: 10;
     transition: ease-in-out .3s;
+    display: none;
 }
 
 .player .player-content {
@@ -646,27 +644,9 @@ input:focus {
     }
 }
 
-@media (max-width: 1240px) {
-
-    .player {
-        max-width: 750px;
-    }
-}
-
-@media (max-width: 1024px) {
-
-    .player {
-        max-width: 700px;
-    }
-}
-
 @media (max-width: 768px) {
     .web-content .row .card {
         flex: 0 1 calc(50% - 20px);
-    }
-
-    .player {
-        max-width: 520px;
     }
 
 }
