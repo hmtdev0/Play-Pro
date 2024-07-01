@@ -515,6 +515,7 @@ input:focus {
     z-index: 10;
     transition: ease-in-out .3s;
     display: none;
+    margin-top: 10px;
 }
 
 .player .player-content {
