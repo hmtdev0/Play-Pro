@@ -44,6 +44,10 @@ input:focus {
     align-items: stretch;
 }
 
+.h-full {
+    height: 100vh;
+}
+
 .flex-grow-1 {
     flex-grow: 1;
 }
@@ -289,10 +293,12 @@ input:focus {
     font-weight: 500;
     font-size: 13px;
     padding: 10px;
+    background: none;
 }
 
-.card .nav-bar .nav-list .nav-link.active {
+.nav-bar .nav-list .nav-link.active {
     background-color: var(--light-gray);
+    /* Adjust this color as needed */
 }
 
 .nav-bar-card .nav-bar .nav-list .nav-link>span {
@@ -400,11 +406,13 @@ input:focus {
 .web-content {
     background-color: var(--dark-gray);
     position: relative;
-    height: 100vh;
     width: 100%;
     border: 2px solid var(--light-gray);
     overflow: hidden;
     overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #000000 #f1f1f1;
+    height: 100%;
 }
 
 
@@ -422,13 +430,6 @@ input:focus {
     /* Color of the scrollbar thumb */
     border-radius: 10px;
     /* Optional: rounded corners for the scrollbar thumb */
-}
-
-/* For Firefox */
-.web-content {
-    scrollbar-width: thin;
-    scrollbar-color: #000000 #f1f1f1;
-    /* Color of the thumb and track */
 }
 
 .web-content .row {
@@ -449,9 +450,17 @@ input:focus {
     padding: 10px;
 }
 
+.web-content .row .empty-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50%;
+    font-size: 17px;
+    color: #474646;
+}
+
 .web-content .voice-card {
     position: relative;
-
 }
 
 .web-content .voice-card .wave-icon {
@@ -516,6 +525,7 @@ input:focus {
     transition: ease-in-out .3s;
     display: none;
     margin-top: 10px;
+    overflow: hidden;
 }
 
 .player .player-content {
@@ -628,10 +638,6 @@ input:focus {
 @media screen and (min-width: 768px) {
     .md\:flex-row {
         flex-direction: row !important;
-    }
-
-    .nav-bar-card {
-        height: 100vh;
     }
 }
 

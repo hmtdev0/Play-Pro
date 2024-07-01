@@ -113,43 +113,32 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // search box query
+
     document.getElementById('search').addEventListener('input', function () {
-        // Get the search query
         const query = this.value.toLowerCase();
+        const links = document.querySelectorAll('.nav-link, .navbar-nav-link, .navbar-nav-li-link-a');
+        const navs = document.querySelectorAll('.navbar-nav, .navbar-nav-ul-link');
 
-        // Get all the navbar links
-        const links = document.querySelectorAll('.nav-link, .navbar-nav-link');
-        const navBars = document.querySelectorAll('.navbar-nav');
+        // Remove previous active classes and reset height
+        links.forEach(link => link.classList.remove('active'));
+        navs.forEach(nav => nav.style.height = '0');
 
-        // Reset all navbar heights to 0 initially
-        navBars.forEach(navBar => {
-            navBar.style.removeProperty('height');
-        });
+        if (query) {
+            // Search for matching text
+            links.forEach(link => {
+                if (link.innerText.toLowerCase().includes(query)) {
+                    link.classList.add('active');
 
-        // Iterate over each link
-        links.forEach(link => {
-            // Get the text content of the link
-            const text = link.textContent.toLowerCase();
-
-            // Check if the text includes the search query
-            if (text.includes(query) && query !== '') {
-                // Add the active class if it matches
-                link.classList.add('active');
-
-                // If it's a navbar-nav-link, set the height of its parent navbar-nav to auto
-                if (link.classList.contains('navbar-nav-link')) {
-                    const navBar = link.closest('.navbar-nav');
-                    if (navBar) {
-                        navBar.style.height = 'auto';
+                    let parentNav = link.closest('ul');
+                    while (parentNav) {
+                        parentNav.style.height = 'auto';
+                        parentNav = parentNav.parentElement.closest('ul');
                     }
                 }
-            } else {
-                // Remove the active class if it doesn't match
-                link.classList.remove('active');
-            }
-        });
+            });
+        }
     });
+
 
 });
 
